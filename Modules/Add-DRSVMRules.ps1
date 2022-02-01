@@ -10,7 +10,7 @@ function Add-DRSVMRules
             Write-Host "$Match_VMs"
             Write-Host "$Server_Type"
             Write-Host "$Cluster"
-            New-DrsRule -Cluster $Cluster -Name AA$Client_Code$Server_Type -KeepTogether $false -VM $Match_VMs
+            New-DrsRule -Cluster $Cluster -Name AA"_"$Client_Code"_"$Server_Type -KeepTogether $false -VM $Match_VMs
             }
         }
     }
