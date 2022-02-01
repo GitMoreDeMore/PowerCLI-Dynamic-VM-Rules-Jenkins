@@ -9,13 +9,13 @@ Import-Module -Name .\Modules\Get-ClientCodes.ps1
 Import-Module -Name .\Modules\Add-DRSVMRules.ps1
 
 # Gather Workload Tags from vCenter IE. RGI,WEB,MDB
-$Server_Options = Get-Tag -Category "Workload_Type" | Where-Object {$_.name -notmatch "TRASH|GARBAGE"}
+$Server_Options = Get-Tag -Category "Workload_Type" | Where-Object {$_.name -notmatch "MOD|TRASH|GARBAGE"}
 
 # Loop vCenter Clusters creating rules for matching Client / Workload
 foreach($Cluster in Get-Cluster)
 	{
-    Get-DRSVMRules $Cluster
-	Get-ClientCodes $Cluster $Server_Options.Name
+    Get-DRSVMRules $Cluster.Name
+	Get-ClientCodes $Cluster.Name $Server_Options.Name
 	}
 
 # Disconnect vCenter Server
