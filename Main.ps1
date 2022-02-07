@@ -42,7 +42,7 @@ if ($Confirmation -eq "y" -or $Confirmation -eq "yes")
 	{
 	foreach($Cluster in Get-Cluster)
 		{
-		Remove-DRSVMRules $Cluster.Name PowerCLI-Dynamic-VM-VM-Rules
+		Remove-DRSVMRules $Cluster.Name $Confirmation
 		Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
 		}
 	}
