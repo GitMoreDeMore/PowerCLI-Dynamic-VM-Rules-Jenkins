@@ -9,7 +9,7 @@ function Remove-DRSVMRules($Cluster, $Confirmation)
             }
         else 
             {
-            Write-host Old Rules: $Old_Rules
+            Write-host Old Rules: $Old_Rules -ForegroundColor DarkRed
             }
         }
     }

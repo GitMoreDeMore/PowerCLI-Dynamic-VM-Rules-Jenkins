@@ -15,14 +15,20 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                     }
                 else
                     {
-                    Write-Host Anti-Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name
+                    Write-Host Anti-Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name -ForegroundColor DarkGreen
                     }
                 }
-            #else
-                #{
-                #Write-Host Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name
-                #New-DrsRule -Cluster $Cluster -Name A"_"$Client_Code"_"$Role_Type -KeepTogether $true -VM $Match_VMs.Entity.Name
-                #}
+            else
+                {
+                if ($Confirmation -eq 'y')
+                    {
+                    New-DrsRule -Cluster $Cluster -Name A"_"$Client_Code"_"$Role_Type -KeepTogether $true -VM $Match_VMs.Entity.Name
+                    }
+                else
+                    {
+                    Write-Host Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name -ForegroundColor DarkGreen
+                    }
+                }
             }
         elseif ($Match_VMs.count -gt $Host_Count)
             {
@@ -30,11 +36,11 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                 {
                 $Subject = "VM Rule Set Failed in $Cluster - $Client_Code $Role_Type"
                 $Body = "Host Count: $Host_Count`nCluster: $Cluster`nVMs: $($Match_VMs.Entity.Name)"
-                Send-MailMessage -To $EmailTo -From $EmailFrom  -Subject $Subject -Body $Body -SmtpServer $SMTPS -Port $SMTP_Port
+                Send-MailMessage -To $EmailTo -From $EmailFrom  -Subject $Subject -Body $Body -Credential $SMTPCred -UseSSL -SmtpServer $SMTPS -Port $SMTP_Port
                 }
             else
                 {
-                Write-Host Error - too many VMs: $Match_VMs.Entity.Name
+                Write-Host Error - too many VMs: $Match_VMs.Entity.Name -ForegroundColor Yellow -BackgroundColor DarkRed
                 }
             }
         }

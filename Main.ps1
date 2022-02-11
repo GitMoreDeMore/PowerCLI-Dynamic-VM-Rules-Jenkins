@@ -6,21 +6,18 @@
 . .\Modules\New-DRSVMRules.ps1
 
 ##Global Variables for SMTP
-$global:EmailTo = "myemail@email.com"
-$global:EmailFrom = "noreply@email.com"
-$global:SMTPS = "smtp.email.com"
-$global:SMTP_Port = 25
+$global:EmailTo = "$SMTPUser"
+$global:EmailFrom = "$SMTPUser"
+$global:SMTPS = "smtp-mail.outlook.com"
+$global:SMTP_Port = 587
 
-# Set vCenter FQDN/IP and confirmation variables
-$vCenter = "192.168.1.159"
-$vCredential = Get-Credential
 $Confirmation ="no"
 
 # Connect to vCenter Server
-Connect-VIServer -Server $vCenter -Credential $vCredential -WarningAction SilentlyContinue
+Connect-VIServer -Server $vCenter -User $VCUser -Password $VCPassword -WarningAction SilentlyContinue
 
 # Set affinity Client_Code to keep VMs together
-#$Affinity_Client_Code = "MD"
+$Affinity_Client_Code = "MD"
 # Set exclusions for Role
 $Exclude_Role = Get-Tag -Category "Exclude_Role"
 $Exclude_Role = $Exclude_Role.name -join '|'
