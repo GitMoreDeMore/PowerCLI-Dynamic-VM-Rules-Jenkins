@@ -35,10 +35,13 @@ foreach($Cluster in Get-Cluster)
 	}
 
 #Actual run
-foreach($Cluster in Get-Cluster)
+if ($Confirmation -eq "y")
 	{
-	Remove-DRSVMRules $Cluster.Name $Confirmation
-	Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
+	foreach($Cluster in Get-Cluster)
+		{
+		Remove-DRSVMRules $Cluster.Name $Confirmation
+		Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
+		}
 	}
 
 # Disconnect vCenter Server
