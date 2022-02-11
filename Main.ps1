@@ -4,6 +4,7 @@
 Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
 
 # Import Function Modules
+. .\Modules\Get-AnsiWriteHost.ps1
 . .\Modules\Remove-DRSVMRules.ps1
 . .\Modules\Get-ClientCodes.ps1
 . .\Modules\New-DRSVMRules.ps1
