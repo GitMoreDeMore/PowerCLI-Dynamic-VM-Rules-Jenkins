@@ -1,5 +1,8 @@
 ## Create DRS rules dynamically for matching Client_Code/Role Tags
 
+# Add Jenkins Variables
+Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass)
+
 # Import Function Modules
 . .\Modules\Remove-DRSVMRules.ps1
 . .\Modules\Get-ClientCodes.ps1
