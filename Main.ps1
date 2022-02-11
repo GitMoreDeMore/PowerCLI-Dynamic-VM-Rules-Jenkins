@@ -27,21 +27,10 @@ $Exclude_Role = $Exclude_Role.name -join '|'
 $Role_Options = Get-Tag -Category "Role" | Where-Object {$_.name -notmatch "$Exclude_Role"}
 
 # Loop vCenter Clusters creating rules for matching Client / Workload
-#Dry Run
 foreach($Cluster in Get-Cluster)
 	{
 	Remove-DRSVMRules $Cluster.Name $Confirmation
 	Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
-	}
-
-#Actual run
-if ($Confirmation -eq "y")
-	{
-	foreach($Cluster in Get-Cluster)
-		{
-		Remove-DRSVMRules $Cluster.Name $Confirmation
-		Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
-		}
 	}
 
 # Disconnect vCenter Server
