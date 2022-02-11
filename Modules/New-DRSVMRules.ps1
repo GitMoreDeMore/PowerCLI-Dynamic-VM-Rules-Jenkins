@@ -15,7 +15,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                     }
                 else
                     {
-                    Write-Host "Anti-Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name" -ForegroundColor DarkGreen -BackgroundColor Black
+                    Write-Host "Anti-Affinity $Client_Code $Role_Type VMs: $($Match_VMs.Entity.Name)" -ForegroundColor DarkGreen -BackgroundColor Black
                     }
                 }
             else
@@ -26,7 +26,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                     }
                 else
                     {
-                    Write-Host "Affinity $Client_Code $Role_Type VMs: $Match_VMs.Entity.Name" -ForegroundColor DarkGreen -BackgroundColor Black
+                    Write-Host "Affinity $Client_Code $Role_Type VMs: $($Match_VMs.Entity.Name)" -ForegroundColor DarkGreen -BackgroundColor Black
                     }
                 }
             }
@@ -40,7 +40,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                 }
             else
                 {
-                Write-Host "Error - too many VMs: $Match_VMs.Entity.Name" -ForegroundColor Yellow -BackgroundColor DarkRed
+                Write-Host "Error - too many VMs: $($Match_VMs.Entity.Name)" -ForegroundColor Yellow -BackgroundColor DarkRed
                 }
             }
         }
