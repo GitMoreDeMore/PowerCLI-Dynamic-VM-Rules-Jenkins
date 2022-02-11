@@ -36,7 +36,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                 {
                 $Subject = "VM Rule Set Failed in $Cluster - $Client_Code $Role_Type"
                 $Body = "Host Count: $Host_Count`nCluster: $Cluster`nVMs: $($Match_VMs.Entity.Name)"
-                Send-MailMessage -To $EmailTo -From $EmailFrom  -Subject $Subject -Body $Body -Credential $SMTPCred -UseSSL -SmtpServer $SMTPS -Port $SMTP_Port
+                Send-MailMessage -To $EmailTo -From $EmailFrom  -Subject $Subject -Body $Body -Credential $SMTPCreds -UseSSL -SmtpServer $SMTPS -Port $SMTP_Port
                 }
             else
                 {

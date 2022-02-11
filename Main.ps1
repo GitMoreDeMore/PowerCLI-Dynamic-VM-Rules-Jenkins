@@ -13,6 +13,7 @@ $global:EmailTo = "$SMTPUser"
 $global:EmailFrom = "$SMTPUser"
 $global:SMTPS = "smtp-mail.outlook.com"
 $global:SMTP_Port = 587
+$global:SMTPCreds = New-Object System.Management.Automation.PSCredential -ArgumentList $SMTPUser, $($SMTPPass | ConvertTo-SecureString -AsPlainText -Force) 
 
 # Connect to vCenter Server
 Connect-VIServer -Server $vCenter -User $VCUser -Password $VCPassword -WarningAction SilentlyContinue
