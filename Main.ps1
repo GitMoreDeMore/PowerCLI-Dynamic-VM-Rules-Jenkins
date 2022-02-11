@@ -35,18 +35,10 @@ foreach($Cluster in Get-Cluster)
 	}
 
 #Actual run
-$Confirmation = Read-Host "Do You Want To Proceed"
-if ($Confirmation -eq "y" -or $Confirmation -eq "yes")
+foreach($Cluster in Get-Cluster)
 	{
-	foreach($Cluster in Get-Cluster)
-		{
-		Remove-DRSVMRules $Cluster.Name $Confirmation
-		Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
-		}
-	}
-else
-	{
-	Write-Host "Aborting..."
+	Remove-DRSVMRules $Cluster.Name $Confirmation
+	Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
 	}
 
 # Disconnect vCenter Server
