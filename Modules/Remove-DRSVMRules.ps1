@@ -3,7 +3,7 @@ function Remove-DRSVMRules($Cluster, $Confirmation)
     $Old_Rules = Get-DrsRule -Cluster $Cluster -Name "*"
     if ($Old_Rules)
         {
-        if ($Confirmation -eq 'y')
+        if ($Confirmation -eq 'yes')
             {
             Remove-DrsRule $Old_Rules -Confirm:$false
             }

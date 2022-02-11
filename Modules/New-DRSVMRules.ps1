@@ -9,7 +9,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
             {
             if ($Client_Code -notlike "$Affinity_Client_Code")
                 {
-                if ($Confirmation -eq 'y')
+                if ($Confirmation -eq 'yes')
                     {
                     New-DrsRule -Cluster $Cluster -Name AA"_"$Client_Code"_"$Role_Type -KeepTogether $false -VM $Match_VMs.Entity.Name
                     }
@@ -20,7 +20,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                 }
             else
                 {
-                if ($Confirmation -eq 'y')
+                if ($Confirmation -eq 'yes')
                     {
                     New-DrsRule -Cluster $Cluster -Name A"_"$Client_Code"_"$Role_Type -KeepTogether $true -VM $Match_VMs.Entity.Name
                     }
@@ -32,7 +32,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
             }
         elseif ($Match_VMs.count -gt $Host_Count)
             {
-            if ($Confirmation -eq 'y')
+            if ($Confirmation -eq 'yes')
                 {
                 $Subject = "VM Rule Set Failed in $Cluster - $Client_Code $Role_Type"
                 $Body = "Host Count: $Host_Count`nCluster: $Cluster`nVMs: $($Match_VMs.Entity.Name)"
