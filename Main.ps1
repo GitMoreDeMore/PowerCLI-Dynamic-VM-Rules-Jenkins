@@ -1,7 +1,7 @@
 ## Create DRS rules dynamically for matching Client_Code/Role Tags
 
 # Add Jenkins Variables
-Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass)
+Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
 
 # Import Function Modules
 . .\Modules\Remove-DRSVMRules.ps1
@@ -13,8 +13,6 @@ $global:EmailTo = "$SMTPUser"
 $global:EmailFrom = "$SMTPUser"
 $global:SMTPS = "smtp-mail.outlook.com"
 $global:SMTP_Port = 587
-
-$Confirmation ="no"
 
 # Connect to vCenter Server
 Connect-VIServer -Server $vCenter -User $VCUser -Password $VCPassword -WarningAction SilentlyContinue
