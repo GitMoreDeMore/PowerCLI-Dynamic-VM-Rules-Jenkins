@@ -12,7 +12,8 @@ pipeline {
     cron('@daily')
     pollSCM('H/2 * * * *')
   }
-
+  
+  stages {
     stage('Dry Run') {
       steps {
         withCredentials([
