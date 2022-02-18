@@ -40,6 +40,7 @@ function New-DRSVMRules($Client_Code, $Cluster, [string[]]$Role_Options, $Affini
                 }
             else
                 {
+                Out-File -FilePath fail_tag
                 Write-Host "Error - too many VMs: $($Match_VMs.Entity.Name)" -ForegroundColor Yellow -BackgroundColor DarkRed
                 }
             }
