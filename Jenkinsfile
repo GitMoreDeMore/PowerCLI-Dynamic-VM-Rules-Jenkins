@@ -24,12 +24,15 @@ pipeline {
         sh 'rm -rf ./fail_tag'
         pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation no'
         }
-        script {
-          if (fileExists('fail_tag')) {
-            fail_tag = 'true'
-			echo "Fail tag exists"
-		  } else {
-		    fail_tag = 'false'
+        script{
+        if (fileExists('fail_tag'))
+          {
+          fail_tag = 'true'
+		  echo "Fail tag exists"
+		  } 
+        else
+          {
+		  fail_tag = 'false'
           }
 	    }
       }
@@ -45,15 +48,16 @@ pipeline {
      }
 
     stage('Deploy') {
-      steps {
+      steps
+        {
         withCredentials([
 		usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
 		usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
 		])
         {
-          pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation yes'
+        pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation yes'
         }
-      }
+        }
     }
   }
   
