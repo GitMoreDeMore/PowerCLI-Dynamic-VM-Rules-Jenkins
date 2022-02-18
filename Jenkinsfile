@@ -12,15 +12,6 @@ pipeline {
     cron('@daily')
     pollSCM('H/2 * * * *')
   }
-  
-  stages {
-    stage('Git Clone') {
-      steps {
-	    sh 'rm -rf ./fail_tag'
-        git branch: 'main', url: 'https://github.com/GitMoreDeMore/PowerCLI-Dynamic-VM-Rules-Jenkins.git'
-      }
-    }
-
 
     stage('Dry Run') {
       steps {
@@ -29,6 +20,7 @@ pipeline {
 		usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
 		]) 
         {
+        sh 'rm -rf ./fail_tag'
         pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation no'
         }
         script {
