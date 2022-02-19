@@ -26,6 +26,10 @@ pipeline {
           fail_tag = 'true'
 		      echo "Fail tag exists"
 		      }
+          else
+          {
+          fail_tag = 'false'
+          }
 	      }
       }
     }
