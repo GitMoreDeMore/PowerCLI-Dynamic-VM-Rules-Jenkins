@@ -17,9 +17,9 @@ pipeline {
     stage('Dry Run') {
       steps {
         withCredentials([
-		usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
-		usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
-		]) 
+		    usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
+		    usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
+	    	]) 
         {
         sh 'rm -rf ./fail_tag'
         pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation no'
@@ -51,9 +51,9 @@ pipeline {
       steps
         {
         withCredentials([
-		usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
-		usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
-		])
+		    usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
+		    usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
+	    	])
         {
         pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation yes'
         }
