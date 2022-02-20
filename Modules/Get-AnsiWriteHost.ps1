@@ -5,7 +5,7 @@ function Write-Host {
         [ConsoleColor]$backgroundColor,
         [switch]$nonewline
     )
-        if (!(Get-Command Write-HostOriginal -ea 0).name){ # doit etre embarque (pour les scriptblock)
+        if (!(Get-Command Write-HostOriginal -ea 0).name){
             $global:ConsoleOutput = ''
             $metaData = New-Object System.Management.Automation.CommandMetaData (Get-Command 'Microsoft.PowerShell.Utility\Write-Host')
             Invoke-Expression "function Global:Write-HostOriginal { $([System.Management.Automation.ProxyCommand]::create($metaData)) }"
@@ -13,7 +13,7 @@ function Write-Host {
 
         # https://msdn.microsoft.com/en-us/library/system.consolecolor(v=vs.110).aspx
         # Converted to closest ANSI SGR equivalent
-        $AnsiColor = [pscustomobject][ordered]@{ # doit etre embarque (pour les scriptblock)
+        $AnsiColor = [pscustomobject][ordered]@{
             ForeGround = [pscustomobject][ordered]@{
                 Black = 30
                 Red = 91
@@ -101,26 +101,20 @@ function Write-Host {
     if($backgroundColor) {
         $ansiCodes += $AnsiColor.BackGround.$backgroundColor
     }
-
-    # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -nonewline # | Out-Host
-    # (Get-ColorizeText $object -ansiCodes $ansiCodes ) | Out-Host
-    # [Console]::Write( (Get-ColorizeText $object -ansiCodes $ansiCodes ) )
-    if($foregroundColor -and $backgroundColor){
-        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -BackgroundColor $backgroundColor -nonewline # | Out-Host
+    if($foregroundColor -and $backgroundColor) {
         $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
-    } elseif($foregroundColor){
-        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -nonewline # | Out-Host
+    }
+    elseif($foregroundColor) {
         $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
-    } elseif($backgroundColor){
-        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -BackgroundColor $backgroundColor -nonewline # | Out-Host
+    }
+    elseif($backgroundColor) {
         $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
-    } else {
-        # Write-HostOriginal $object -nonewline # | Out-Host
+    }
+    else {
         $global:ConsoleOutput += $object
     }
     if (!$nonewline) {
         Write-HostOriginal $global:ConsoleOutput # -NoNewline
         $global:ConsoleOutput = ''
-        # Write-HostOriginal '$!' -fore magenta 
     }
 }

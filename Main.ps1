@@ -4,11 +4,12 @@
 Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
 
 ## Import PowerCLI Module if not already installed
-if ($null -eq (Get-Module -Name 'VMware.VimAutomation.Cis.Core')) {
-	Import-Module -Name 'VMware.PowerCLI' -Verbose:$false *> $null
-	# Disable CEIP and ignore certificate warnings
-	Set-PowerCLIConfiguration -Scope User -ParticipateInCeip $false -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
+if ($null -eq (Get-Module -Name VMware.VimAutomation.Cis.Core)) {
+	Install-Module VMware.PowerCLI -Scope CurrentUser -Verbose:$false *> $null
 }
+
+# Disable CEIP and ignore certificate warnings
+Set-PowerCLIConfiguration -Scope User -ParticipateInCeip $false -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
 # Import Function Modules
 . .\Modules\Get-AnsiWriteHost.ps1
