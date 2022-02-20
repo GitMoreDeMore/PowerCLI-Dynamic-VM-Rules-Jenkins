@@ -11,32 +11,30 @@ pipeline {
   }
   
   stages {
+
     stage('Dry Run') {
       steps {
         withCredentials([
 		      usernamePassword(credentialsId: 'vCenterCreds', usernameVariable: 'vcuser', passwordVariable: 'vcpassword'),
 		      usernamePassword(credentialsId: 'EmailCreds', usernameVariable: 'smtpuser', passwordVariable: 'smtppass')
-	    	]) 
-        {
+	    	]) {
         pwsh './Main.ps1 -vCenter $env:vcenter -VCUser $env:vcuser -VCPassword $env:vcpassword -SMTPUser $env:smtpuser -SMTPPass $env:smtppass -Confirmation no'
         }
         script {
-        if (fileExists('fail_tag'))
-          {
+        if (fileExists('fail_tag')) {
           fail_tag = 'true'
 		      echo "Fail tag exists"
 		      }
-          else
-          {
+          else {
           fail_tag = 'false'
           }
 	      }
       }
     }
 	
-    stage('Error Approval'){
+    stage('Error Approval') {
     	options {timeout(time: 1, unit: 'MINUTES')}
-      when { expression { fail_tag == 'true' } }
+      when {expression{fail_tag == 'true'}}
         steps {
         input message: 'Errors Detected: Procced?'
         echo "Proceeding with errors..."
@@ -54,6 +52,7 @@ pipeline {
         }
       }
     }
+    
   }
   
 }

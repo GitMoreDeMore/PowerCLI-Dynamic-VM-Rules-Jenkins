@@ -64,7 +64,7 @@ function Write-Host {
                 # REVERSE_OFF = 27
             }
         }
-        function Colorize-Text {
+        function Get-ColorizeText {
             <#
                 .SYNOPSIS
                     Adds ANSI SGR codes to a string.
@@ -81,7 +81,7 @@ function Write-Host {
                 .NOTES
                     Designed to play nicely with https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
                 .EXAMPLE
-                    Colorize-Text 'toto' 7,93,101
+                    Get-ColorizeText 'toto' 7,93,101
             #>
             param(
                 $object,
@@ -102,18 +102,18 @@ function Write-Host {
         $ansiCodes += $AnsiColor.BackGround.$backgroundColor
     }
 
-    # Write-HostOriginal (Colorize-Text $object -ansiCodes $ansiCodes ) -nonewline # | Out-Host
-    # (Colorize-Text $object -ansiCodes $ansiCodes ) | Out-Host
-    # [Console]::Write( (Colorize-Text $object -ansiCodes $ansiCodes ) )
+    # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -nonewline # | Out-Host
+    # (Get-ColorizeText $object -ansiCodes $ansiCodes ) | Out-Host
+    # [Console]::Write( (Get-ColorizeText $object -ansiCodes $ansiCodes ) )
     if($foregroundColor -and $backgroundColor){
-        # Write-HostOriginal (Colorize-Text $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -BackgroundColor $backgroundColor -nonewline # | Out-Host
-        $global:ConsoleOutput += (Colorize-Text $object -ansiCodes $ansiCodes )
+        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -BackgroundColor $backgroundColor -nonewline # | Out-Host
+        $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
     } elseif($foregroundColor){
-        # Write-HostOriginal (Colorize-Text $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -nonewline # | Out-Host
-        $global:ConsoleOutput += (Colorize-Text $object -ansiCodes $ansiCodes )
+        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -ForegroundColor $foregroundColor -nonewline # | Out-Host
+        $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
     } elseif($backgroundColor){
-        # Write-HostOriginal (Colorize-Text $object -ansiCodes $ansiCodes ) -BackgroundColor $backgroundColor -nonewline # | Out-Host
-        $global:ConsoleOutput += (Colorize-Text $object -ansiCodes $ansiCodes )
+        # Write-HostOriginal (Get-ColorizeText $object -ansiCodes $ansiCodes ) -BackgroundColor $backgroundColor -nonewline # | Out-Host
+        $global:ConsoleOutput += (Get-ColorizeText $object -ansiCodes $ansiCodes )
     } else {
         # Write-HostOriginal $object -nonewline # | Out-Host
         $global:ConsoleOutput += $object
