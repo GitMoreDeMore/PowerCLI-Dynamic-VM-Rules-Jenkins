@@ -1,7 +1,7 @@
 ## Create DRS rules dynamically for matching Client_Code/Role Tags
 
 # Add Jenkins Variables
-Param($vCenter,$VCUser,[SecureString] $VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
+Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
 
 ## Import PowerCLI Module if not already installed
 if ($null -eq (Get-Module -Name 'VMware.VimAutomation.Cis.Core')) {
