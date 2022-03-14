@@ -25,7 +25,7 @@ $global:SMTP_Port = 587
 $global:SMTPCreds = New-Object System.Management.Automation.PSCredential -ArgumentList $SMTPUser, $($SMTPPass | ConvertTo-SecureString -AsPlainText -Force) 
 
 # Connect to vCenter Server
-Connect-VIServer -Server $vCenter -User $VCUser -Password $VCPassword -WarningAction SilentlyContinue
+Connect-VIServer -Server $vCenter -User $VCUser -Password $VCPass -WarningAction SilentlyContinue
 
 # Set affinity Client_Code to keep VMs together
 $Affinity_Client_Code = "MD"
