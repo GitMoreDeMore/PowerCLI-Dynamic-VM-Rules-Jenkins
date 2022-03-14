@@ -5,7 +5,7 @@ function Remove-DRSVMRules($Cluster, $Confirmation) {
             Remove-DrsRule $Old_Rules -Confirm:$false
         }
         else {
-            Write-host "Old Rules: $Old_Rules" -ForegroundColor DarkRed -BackgroundColor Black
+            Write-Host "Old Rules: $Old_Rules" -ForegroundColor DarkRed -BackgroundColor Black
         }
     }
 }

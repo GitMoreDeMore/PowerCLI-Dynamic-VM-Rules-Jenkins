@@ -1,7 +1,7 @@
 ## Create DRS rules dynamically for matching Client_Code/Role Tags
 
 # Add Jenkins Variables
-Param($vCenter,$VCUser,$VCPassword,$SMTPUser,$SMTPPass,$Confirmation)
+Param($vCenter, $VCUser, $VCPass, $SMTPUser, $SMTPPass, $Confirmation)
 
 ## Import PowerCLI Module if not already installed
 if ($null -eq (Get-Module -Name VMware.VimAutomation.Cis.Core)) {
@@ -34,13 +34,13 @@ $Exclude_Role = Get-Tag -Category "Exclude_Role"
 $Exclude_Role = $Exclude_Role.name -join '|'
 
 # Gather Workload Tags from vCenter IE. RGI,WEB,MDB
-$Role_Options = Get-Tag -Category "Role" | Where-Object {$_.name -notmatch "$Exclude_Role"}
+$Role_Options = Get-Tag -Category "Role" | Where-Object { $_.name -notmatch "$Exclude_Role" }
 
 # Loop vCenter Clusters creating rules for matching Client / Workload
-foreach($Cluster in Get-Cluster) {
+foreach ($Cluster in Get-Cluster) {
 	Remove-DRSVMRules $Cluster.Name $Confirmation
 	Get-ClientCodes $Cluster.Name $Role_Options.Name $Affinity_Client_Code $Confirmation
 }
 
 # Disconnect vCenter Server
-Disconnect-VIServer -confirm:$false
+Disconnect-VIServer -Confirm:$false
